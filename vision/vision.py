@@ -48,7 +48,7 @@ while(1):
         area = cv2.contourArea(maxContour)
     
     # show the frame
-    cv2.imshow("Result", image)   
+    cv2.imshow("Result", grayImage)   
 
     # if the 'q' key is pressed then break from the loop
     key = cv2.waitKey(1) & 0xFF
