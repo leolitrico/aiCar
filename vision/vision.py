@@ -44,7 +44,7 @@ while(1):
 
         # draw a rectangle around the largest contour
         x,y,w,h = cv2.boundingRect(maxContour)
-        cv2.rectangle(image, (x,y), (x+w,y+h), (0,255,0), 2)
+        cv2.rectangle(grayImage, (x,y), (x+w,y+h), (0,255,0), 2)
         area = cv2.contourArea(maxContour)
     
     # show the frame
