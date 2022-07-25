@@ -16,14 +16,14 @@ time.sleep(2)
 
 #get first reference image
 initialImage = picam.capture_array()
-ref = grayImage(initialImage).astype("float")
+ref = imageProcessing(initialImage).astype("float")
 
 while(1):
     #get a frame as an array of RGB
     image = picam.capture_array()
 
     #process our image 
-    grayImage = grayImage(image)
+    grayImage = imageProcessing(image)
 
     #find the weighted average between the reference image and the current frame
     cv2.accumulateWeighted(grayImage, ref, 0.05)
