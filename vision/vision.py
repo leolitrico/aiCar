@@ -3,10 +3,9 @@ import cv2
 import time
 import numpy as np
 import rotation
-from vision.rotation import rotate_image
 
 def imageProcessing(image):
-    image = rotate_image(image, 180)
+    image = rotation.rotate_image(image, 180)
     grayImage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     return cv2.GaussianBlur(grayImage, (21, 21), 0)
 
