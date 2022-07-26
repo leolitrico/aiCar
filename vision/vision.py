@@ -67,11 +67,12 @@ def producer(threadQueue):
 
             max_index = np.argmax(shapes)
             maxContour = contours[max_index]   
+            for R in shapes:
 
-            # draw a rectangle around the largest contour
-            x,y,w,h = cv2.boundingRect(maxContour)
-            #for showing the rectangle on the processed image
-            cv2.rectangle(grayImage, (x,y), (x+w,y+h), (0,255,0), 2)
+                # draw a rectangle around the largest contour
+                x,y,w,h = cv2.boundingRect(R)
+                #for showing the rectangle on the processed image
+                cv2.rectangle(grayImage, (x,y), (x+w,y+h), (0,255,0), 2)
             area = cv2.contourArea(maxContour)
         
         totalX += x
