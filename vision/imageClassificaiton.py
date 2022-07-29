@@ -81,8 +81,8 @@ def findPersonCoordinates(image):
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
         # All the results have been drawn on the image, now display the image
         cv2.imshow('Object detector', image)
-
         # Press any key to continue to next image, or press 'q' to quit
         cv2.waitKey(0)
         return (ymin, xmin, ymax, xmax, imH, imW)
+    cv2.imshow('Object detector', image)
     return None
