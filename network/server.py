@@ -13,7 +13,6 @@ def setupServer():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((clientIP, port))
     print("server up")
-    sock.send('connected to pi')
     return sock
 
 def sendImageBis(image, sock):
