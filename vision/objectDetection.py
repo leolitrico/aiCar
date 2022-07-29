@@ -13,7 +13,7 @@ def processCoordinates(ymin, xmin, ymax, xmax, imH, imW):
     return (deltaX, deltaY)
 
 
-def producer(threadQueue):
+def producer(threadQueue, interpreterDetails):
     # setup camera
     picam = Picamera2()
     picam.start()
@@ -26,7 +26,7 @@ def producer(threadQueue):
         # process our image
         image = rotation.rotate_image(image, 180)
 
-        result = imageClassificaiton.findPersonCoordinates(image)
+        result = imageClassificaiton.findPersonCoordinates(image, interpreterDetails)
         if result != None:
             (deltaX, deltaY) = processCoordinates(result._1,
                                                   result._2, result._3, result._4, result._5, result._6)

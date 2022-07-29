@@ -10,9 +10,8 @@ from tflite_runtime.interpreter import Interpreter
 # minimum score needed to get a correct classification of our object
 min_conf_threshold = 0.5
 
-
-def findPersonCoordinates(image):
-    # Path to the model's graph which will detect our objects
+def getInterpreter():
+     # Path to the model's graph which will detect our objects
     path_to_graph = "/home/pi/aiCar/tfliteModel/detect.tflite"
 
     # Path to labelmap
@@ -36,11 +35,6 @@ def findPersonCoordinates(image):
     height = input_details[0]['shape'][1]
     width = input_details[0]['shape'][2]
 
-    floating_model = (input_details[0]['dtype'] == np.float32)
-
-    input_mean = 127.5
-    input_std = 127.5
-
     outname = output_details[0]['name']
 
     if ('StatefulPartitionedCall' in outname):
@@ -48,16 +42,16 @@ def findPersonCoordinates(image):
     else:
         boxes_idx, classes_idx, scores_idx = 0, 1, 2
 
+    return (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx)
+
+def findPersonCoordinates(image, interpreterDetails):
+
+    (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx) = interpreterDetails
     # resize the image to the input specifications made by ml model
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     imH, imW, _ = image.shape
     image_resized = cv2.resize(image_rgb, (width, height))
     input_data = np.expand_dims(image_resized, axis=0)
-
-    # Normalize pixel values if using a floating model
-    if floating_model:
-        input_data = (np.float32(input_data) - input_mean) / input_std
-        print("floating_model")
 
     # run the model on our image
     interpreter.set_tensor(input_details[0]['index'], input_data)
@@ -82,9 +76,9 @@ def findPersonCoordinates(image):
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
         cv2.imshow('Object detector', image)
         cv2.waitKey(0)
-        print("there is an object")
+
         return (ymin, xmin, ymax, xmax, imH, imW)
+
     cv2.imshow('Object detector', image)
     cv2.waitKey(0)
-    print("nothing detected")
     return None
