@@ -71,6 +71,7 @@ def findPersonCoordinates(image):
         0]
 
     max_index = np.argmax(scores)
+    print(boxes)
     if ((scores[max_index] > min_conf_threshold) and (scores[max_index] <= 1.0)):
 
         ymin = int(max(1, (boxes[max_index][0] * imH)))
