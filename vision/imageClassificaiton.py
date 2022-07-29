@@ -11,7 +11,7 @@ from tflite_runtime.interpreter import Interpreter
 min_conf_threshold = 50.0
 
 
-def findPersonCoordinates(inputImage):
+def findPersonCoordinates(image):
     # Path to the model's graph which will detect our objects
     path_to_graph = "/home/pi/aiCar/tfliteModel/detect.tflite"
 
