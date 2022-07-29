@@ -85,4 +85,5 @@ def findPersonCoordinates(image):
         return (ymin, xmin, ymax, xmax, imH, imW)
     #cv2.imshow('Object detector', image)
     #cv2.waitKey(0)
+    print("nothing detected")
     return None
