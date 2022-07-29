@@ -20,12 +20,14 @@ data = b""
 while True:
     while len(data) < packet_size:
         data += connection.recv(4096)
+
     packed_msg_size = data[:packet_size]
     data = data[packet_size:]
     msg_size = struct.unpack(">L", packed_msg_size)[0]
-    print("msg_size: {}".format(msg_size))
+
     while len(data) < msg_size:
-        data += conn.recv(4096)
+        data += connection.recv(4096)
+        
     frame_data = data[:msg_size]
     data = data[msg_size:]
 
