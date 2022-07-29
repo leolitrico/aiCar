@@ -7,6 +7,6 @@ import objectDetection
 import imageClassification
 import server
 
-server.setupServer()
+sock = server.setupServer()
 q = Queue()
-objectDetection.producer(q, imageClassification.getInterpreter())
+objectDetection.producer(q, imageClassification.getInterpreter(), sock)
