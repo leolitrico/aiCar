@@ -15,13 +15,9 @@ def setupServer():
     print("server up")
     return sock
 
-def sendImageBis(image, sock):
+def sendImage(image, sock):
     result, frame = cv2.imencode('.jpg', image, encoding.encoding)
     data = pickle.dumps(frame, 0)
     size = len(data)
 
     sock.sendall(struct.pack(">L", size) + data)
-
-def sendImage(image, sock):
-    t1 = Thread(target=sendImageBis, args=(image, sock, ))
-    t1.start()
