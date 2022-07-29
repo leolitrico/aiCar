@@ -30,4 +30,4 @@ def producer(threadQueue, interpreterDetails, sock):
         if result != None:
             (deltaX, deltaY) = processCoordinates(result[0],
                                                   result[1], result[2], result[3], result[4], result[5])
-            threadQueue.push((deltaX, deltaY))
+            threadQueue.put((deltaX, deltaY))
