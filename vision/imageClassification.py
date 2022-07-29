@@ -7,6 +7,9 @@ import glob
 import importlib.util
 from tflite_runtime.interpreter import Interpreter
 
+sys.path.insert(0, '/home/pi/aiCar/network')
+import server
+
 # minimum score needed to get a correct classification of our object
 min_conf_threshold = 0.5
 
@@ -74,11 +77,9 @@ def findPersonCoordinates(image, interpreterDetails):
         xmax = int(min(imW, (boxes[max_index][3] * imW)))
 
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
-        cv2.imshow('Object detector', image)
-        cv2.waitKey(0)
+        server.sendImage(image)
 
         return (ymin, xmin, ymax, xmax, imH, imW)
 
-    cv2.imshow('Object detector', image)
-    cv2.waitKey(0)
+    server.sendImage(image)
     return None
