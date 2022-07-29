@@ -9,7 +9,7 @@ port = 3456
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((host, port))
 sock.listen(10)
-print("listenening")
+print("listenening...")
 
 connection, address = sock.accept()
 print("connection established")
