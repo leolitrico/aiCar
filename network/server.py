@@ -6,7 +6,7 @@ import struct
 from threading import Thread
 
 clientIP = '192.168.1.63'
-port = 5001
+port = 5007
 
 def setupServer():
     print("server setting up...")

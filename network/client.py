@@ -4,7 +4,7 @@ import cv2
 import pickle
 
 host = ''
-port = 3456
+port = 5007
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((host, port))
