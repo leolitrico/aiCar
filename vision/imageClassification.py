@@ -47,7 +47,7 @@ def getInterpreter():
 
     return (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx)
 
-def findPersonCoordinates(image, interpreterDetails):
+def findPersonCoordinates(image, interpreterDetails, sock):
 
     (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx) = interpreterDetails
     # resize the image to the input specifications made by ml model
@@ -77,9 +77,9 @@ def findPersonCoordinates(image, interpreterDetails):
         xmax = int(min(imW, (boxes[max_index][3] * imW)))
 
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
-        server.sendImage(image)
+        server.sendImage(image, sock)
 
         return (ymin, xmin, ymax, xmax, imH, imW)
 
-    server.sendImage(image)
+    server.sendImage(image, sock)
     return None
