@@ -71,7 +71,6 @@ def findPersonCoordinates(image):
         0]
 
     max_index = np.argmax(scores)
-    print(scores)
     if ((scores[max_index] > min_conf_threshold) and (scores[max_index] <= 1.0)):
 
         ymin = int(max(1, (boxes[max_index][0] * imH)))
@@ -80,11 +79,11 @@ def findPersonCoordinates(image):
         xmax = int(min(imW, (boxes[max_index][3] * imW)))
 
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
-        #cv2.imshow('Object detector', image)
-        #cv2.waitKey(0)
+        cv2.imshow('Object detector', image)
+        cv2.waitKey(0)
         print("there is an object")
         return (ymin, xmin, ymax, xmax, imH, imW)
-    #cv2.imshow('Object detector', image)
-    #cv2.waitKey(0)
+    cv2.imshow('Object detector', image)
+    cv2.waitKey(0)
     print("nothing detected")
     return None
