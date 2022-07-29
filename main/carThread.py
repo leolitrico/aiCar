@@ -1,5 +1,5 @@
-import motor
 import steering
+import motor
 import sys
 sys.path.insert(0, '/home/pi/aiCar/carControl')
 
