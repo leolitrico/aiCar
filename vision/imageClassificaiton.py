@@ -13,10 +13,10 @@ min_conf_threshold = 50.0
 
 def findPersonCoordinates(inputImage):
     # Path to the model's graph which will detect our objects
-    path_to_graph = "home/pi/aiCar/tfliteModel/detect.tflite"
+    path_to_graph = "/home/pi/aiCar/tfliteModel/detect.tflite"
 
     # Path to labelmap
-    path_to_labels = "home/pi/aiCar/tfliteModel/labelmap.txt"
+    path_to_labels = "/home/pi/aiCar/tfliteModel/labelmap.txt"
 
     # Load the label map
     with open(path_to_labels, 'r') as f:
