@@ -8,7 +8,7 @@ import importlib.util
 from tflite_runtime.interpreter import Interpreter
 
 # minimum score needed to get a correct classification of our object
-min_conf_threshold = 50.0
+min_conf_threshold = 20.0
 
 
 def findPersonCoordinates(image):
