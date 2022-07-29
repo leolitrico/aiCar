@@ -40,7 +40,7 @@ def findPersonCoordinates(inputImage):
     if labels[0] == '???':
         del(labels[0])
 
-    interpreter = Interpreter(model_path=PATH_TO_CKPT)
+    interpreter = Interpreter(model_path=path_to_graph)
 
     interpreter.allocate_tensors()
 
