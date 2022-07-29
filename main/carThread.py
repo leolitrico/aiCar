@@ -1,7 +1,10 @@
-import carControl.motor as motor
-import carControl.steering as steering
+import motor
+import steering
+import sys
+sys.path.insert(0, '/home/pi/aiCar/carControl')
+
+
 deltaXTolerance = 20
-areaFactor = 1
 
 
 def consumer(threadQueue):
@@ -15,5 +18,6 @@ def consumer(threadQueue):
                 steer = steering.Steering.LEFT
             else:
                 steer = steering.Steering.RIGHT
+
             steering.steer(steer)
             motor.run(deltaY)
