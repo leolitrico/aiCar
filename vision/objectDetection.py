@@ -28,6 +28,6 @@ def producer(threadQueue, interpreterDetails, sock):
 
         result = imageClassification.findPersonCoordinates(image, interpreterDetails, sock)
         if result != None:
-            (deltaX, deltaY) = processCoordinates(result._1,
-                                                  result._2, result._3, result._4, result._5, result._6)
+            (deltaX, deltaY) = processCoordinates(result[0],
+                                                  result[1], result[2], result[3], result[4], result[5])
             threadQueue.push((deltaX, deltaY))
