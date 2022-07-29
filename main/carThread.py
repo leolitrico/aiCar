@@ -7,7 +7,7 @@ areaFactor = 1
 def consumer(threadQueue):
     while True:
         if len(threadQueue) > 0:
-            deltaX, deltaArea = threadQueue.get()
+            deltaX, deltaY = threadQueue.get()
             steer = None
             if abs(deltaX) < 20:
                 steer = steering.Steering.STRAIGHT
@@ -16,4 +16,4 @@ def consumer(threadQueue):
             else:
                 steer = steering.Steering.RIGHT
             steering.steer(steer)
-            motor.run(deltaArea * areaFactor)
+            motor.run(deltaY)

@@ -6,15 +6,15 @@ import sys
 import glob
 import importlib.util
 
+# minimum score needed to get a correct classification of our object
+min_conf_threshold = 50.0
+
 
 def findPersonCoordinates(inputImage):
     # ai classification model location
     model_dir = "tfliteModel"
     model_graph = "detect.tflite"
     model_labelmap = "labelmap.txt"
-
-    # min confidence for detecting an object
-    min_conf_threshold = 50.0
 
     # get our interpreter
     pkg = importlib.util.find_spec('tflite_runtime')
@@ -62,28 +62,27 @@ def findPersonCoordinates(inputImage):
     else:
         boxes_idx, classes_idx, scores_idx = 0, 1, 2
 
-    # Load image and resize to expected shape [1xHxWx3]
-    image = cv2.imread(inputImage)
+    # resize the image to the input specifications made by ml model
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     imH, imW, _ = image.shape
     image_resized = cv2.resize(image_rgb, (width, height))
     input_data = np.expand_dims(image_resized, axis=0)
 
-    # Normalize pixel values if using a floating model (i.e. if model is non-quantized)
+    # Normalize pixel values if using a floating model
     if floating_model:
         input_data = (np.float32(input_data) - input_mean) / input_std
 
-    # Perform the actual detection by running the model with the image as input
+    # run the model on our image
     interpreter.set_tensor(input_details[0]['index'], input_data)
     interpreter.invoke()
 
-    # Retrieve detection results
+    # get the detection results
     boxes = interpreter.get_tensor(output_details[boxes_idx]['index'])[
-        0]  # Bounding box coordinates of detected objects
+        0]
     classes = interpreter.get_tensor(output_details[classes_idx]['index'])[
-        0]  # Class index of detected objects
+        0]
     scores = interpreter.get_tensor(output_details[scores_idx]['index'])[
-        0]  # Confidence of detected objects
+        0]
 
     max_index = np.argmax(scores)
     if ((scores[max_index] > min_conf_threshold) and (scores[max_index] <= 1.0)):
