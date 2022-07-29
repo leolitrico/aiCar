@@ -7,6 +7,6 @@ import objectDetection
 import imageClassification
 import server
 
-server.setupSetup()
+server.setupServer()
 q = Queue()
 objectDetection.producer(q, imageClassification.getInterpreter())
