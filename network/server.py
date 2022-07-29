@@ -8,7 +8,7 @@ from threading import Thread
 clientIP = '192.168.1.63'
 port = 5001
 
-def setupSever():
+def setupServer():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((clientIP, port))
     sock.send('connected to pi')
