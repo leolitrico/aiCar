@@ -5,32 +5,18 @@ import numpy as np
 import sys
 import glob
 import importlib.util
+from tflite_runtime.interpreter import Interpreter
 
 # minimum score needed to get a correct classification of our object
 min_conf_threshold = 50.0
 
 
 def findPersonCoordinates(inputImage):
-    # ai classification model location
-    model_dir = "tfliteModel"
-    model_graph = "detect.tflite"
-    model_labelmap = "labelmap.txt"
-
-    # get our interpreter
-    pkg = importlib.util.find_spec('tflite_runtime')
-    if pkg:
-        from tflite_runtime.interpreter import Interpreter
-    else:
-        from tensorflow.lite.python.interpreter import Interpreter
-
-    # Get path to current working directory
-    current_dir = os.getcwd()
-
     # Path to the model's graph which will detect our objects
-    path_to_graph = os.path.join(current_dir, model_dir, model_graph)
+    path_to_graph = "home/pi/aiCar/tfliteModel/detect.tflite"
 
     # Path to labelmap
-    path_to_labels = os.path.join(current_dir, model_dir, model_labelmap)
+    path_to_labels = "home/pi/aiCar/tfliteModel/labelmap.txt"
 
     # Load the label map
     with open(path_to_labels, 'r') as f:
