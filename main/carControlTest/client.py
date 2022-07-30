@@ -27,18 +27,18 @@ while True:
     throttle = data[2]
 
     
-    #if direction == "right":
-        #steering.steer(steering.Steering.RIGHT)
-    #elif direction == "left":
-        #steering.steer(steering.Steering.LEFT)
-    #else:
-        #steering.steer(steering.Steering.STRAIGHT)
+    if direction == "right":
+        steering.steer(steering.Steering.RIGHT)
+    elif direction == "left":
+        steering.steer(steering.Steering.LEFT)
+    else:
+        steering.steer(steering.Steering.STRAIGHT)
 
-    #if forward == "forward":
-        #motor.run(-1 * int(throttle))
-    #elif forward == "none":
-        #motor.run(0)
-    #else:
-        #motor.run(int(throttle))
+    if forward == "forward":
+        motor.run(-1 * int(throttle))
+    elif forward == "none":
+        motor.run(0)
+    else:
+        motor.run(int(throttle))
     
     print(direction + " " + forward + ":" + throttle) 
