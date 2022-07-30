@@ -12,8 +12,8 @@ def setup():
     global m2
     GPIO.setup(20, GPIO.OUT)  # M1
     GPIO.setup(21, GPIO.OUT)  # M2
-    m1 = GPIO.PWM(20, 100)
-    m2 = GPIO.PWM(21, 100)
+    m1 = GPIO.PWM(20, 10)
+    m2 = GPIO.PWM(21, 10)
     m1.start(0)
     m2.start(0)
 
