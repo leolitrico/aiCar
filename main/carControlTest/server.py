@@ -3,6 +3,7 @@ import cv2
 import pickle
 import struct
 import keyboard
+import time
 
 clientIP = '192.168.1.66'
 port = 5007
@@ -18,7 +19,7 @@ throttle = "40"
 string = direction + " " + forward + " " + throttle
 
 while True:
-    
+    time.sleep(0.5)
     if keyboard.is_pressed("up arrow"):
         forward = "forward"
     elif keyboard.is_pressed("down arrow"):
