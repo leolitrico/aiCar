@@ -87,7 +87,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
             maxIndex = np.argmax(potentialObjects)
 
         print(potentialObjects)
-        print(index)
+        print(maxIndex)
         print(len(potentialObjects))
         score, index = potentialObjects[maxIndex]
         
