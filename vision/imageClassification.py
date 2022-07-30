@@ -16,6 +16,16 @@ min_conf_threshold = 0.4
 #object we want to detect
 object = "person"
 
+#method to get the score and index of the object with the max score
+def getMaxScore(list):
+    maxScore = 0
+    index = 0
+    for score, i in list:
+        if score > maxScore:
+            maxScore = score
+            index = i
+    return maxScore, index
+
 def getInterpreter():
      # Path to the model's graph which will detect our objects
     path_to_graph = "/home/pi/aiCar/tfliteModel/detect.tflite"
@@ -81,15 +91,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
     #if we have potential candidates, find the one with max score, and if it is above our minimum score threshold, then output
     lengthArray = len(potentialObjects)
     if lengthArray > 0:
-        #if length of index is one, np.argmax will treat the single tuple as the list itself
-        maxIndex = 0
-        if lengthArray != 1:
-            maxIndex = np.argmax(potentialObjects)
-
-        print(potentialObjects)
-        print(maxIndex)
-        print(len(potentialObjects))
-        score, index = potentialObjects[maxIndex]
+        score, index = getMaxScore(potentialObjects)
         
         if(score > min_conf_threshold):
             ymin = int(max(1, (boxes[index][0] * imH)))
