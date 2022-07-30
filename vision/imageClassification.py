@@ -77,7 +77,10 @@ def findPersonCoordinates(image, interpreterDetails, sock):
 
     #if we have potential candidates, find the one with max probability, and if it is above our minimum score threshold, then output
     if len(potentialSportsBalls) > 0:
+        print(potentialSportsBalls[0])
+        print(len(potentialSportsBalls))
         maxIndex = np.argmax(potentialSportsBalls)
+        print(maxIndex)
         sportsBall = potentialSportsBalls[maxIndex]
         
         if(sportsBall._1 > min_conf_threshold):
