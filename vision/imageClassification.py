@@ -45,11 +45,11 @@ def getInterpreter():
     else:
         boxes_idx, classes_idx, scores_idx = 0, 1, 2
 
-    return (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx)
+    return (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx, labels)
 
 def findPersonCoordinates(image, interpreterDetails, sock):
 
-    (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx) = interpreterDetails
+    (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx, labels) = interpreterDetails
     # resize the image to the input specifications made by ml model
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     imH, imW, _ = image.shape
@@ -76,7 +76,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
         ymax = int(min(imH, (boxes[max_index][2] * imH)))
         xmax = int(min(imW, (boxes[max_index][3] * imW)))
 
-        label = classes[max_index]
+        label = labels[classes[max_index]]
         cv2.putText(image, label, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
         server.sendImage(image, sock)

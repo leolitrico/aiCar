@@ -28,7 +28,6 @@ def run(deltaY):
         m2.ChangeDutyCycle(0)
     else:
         dutyCycle = min(100, absoluteY / maxDeltaY * 100)
-        print(dutyCycle)
         if deltaY < 0:
             # go forward
             m1.ChangeDutyCycle(dutyCycle)
