@@ -85,7 +85,10 @@ def findPersonCoordinates(image, interpreterDetails, sock):
         maxIndex = 0
         if lengthArray != 1:
             maxIndex = np.argmax(potentialObjects)
-            
+
+        print(potentialObjects)
+        print(index)
+        print(len(potentialObjects))
         score, index = potentialObjects[maxIndex]
         
         if(score > min_conf_threshold):
