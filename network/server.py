@@ -12,7 +12,7 @@ def setupServer():
     print("server setting up...")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((clientIP, port))
-    print("server up")
+    print("server up and connected to client")
     return sock
 
 def sendImage(image, sock):
