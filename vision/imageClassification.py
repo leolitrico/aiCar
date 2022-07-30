@@ -11,7 +11,10 @@ sys.path.insert(0, '/home/pi/aiCar/network')
 import server
 
 # minimum score needed to get a correct classification of our object
-min_conf_threshold = 0.5
+min_conf_threshold = 0.4
+
+#object we want to detect
+object = "person"
 
 def getInterpreter():
      # Path to the model's graph which will detect our objects
@@ -69,20 +72,21 @@ def findPersonCoordinates(image, interpreterDetails, sock):
         0]
 
     #get the objects that could qualify as a sports ball
-    potentialSportsBalls = []
+    potentialObjects = []
     for i in range(0, len(scores)):
         label = labels[int(classes[i])]
-        if label == "person":
-            potentialSportsBalls.append((scores[i], i))
+        if label == object:
+            potentialObjects.append((scores[i], i))
 
     #if we have potential candidates, find the one with max score, and if it is above our minimum score threshold, then output
-    lengthArray = len(potentialSportsBalls)
+    lengthArray = len(potentialObjects)
     if lengthArray > 0:
         #if length of index is one, np.argmax will treat the single tuple as the list itself
         maxIndex = 0
         if lengthArray != 1:
-            maxIndex = np.argmax(potentialSportsBalls)
-        score, index = potentialSportsBalls[maxIndex]
+            maxIndex = np.argmax(potentialObjects)
+            
+        score, index = potentialObjects[maxIndex]
         
         if(score > min_conf_threshold):
             ymin = int(max(1, (boxes[index][0] * imH)))
@@ -90,7 +94,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
             ymax = int(min(imH, (boxes[index][2] * imH)))
             xmax = int(min(imW, (boxes[index][3] * imW)))
 
-            cv2.putText(image, "person", (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(image, object, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
             cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
             server.sendImage(image, sock)
 
