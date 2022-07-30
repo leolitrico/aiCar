@@ -68,20 +68,29 @@ def findPersonCoordinates(image, interpreterDetails, sock):
     scores = interpreter.get_tensor(output_details[scores_idx]['index'])[
         0]
 
-    max_index = np.argmax(scores)
-    if ((scores[max_index] > min_conf_threshold) and (scores[max_index] <= 1.0)):
+    #get the objects that could qualify as a sports ball
+    potentialSportsBalls = []
+    for i in range(0, len(scores)):
+        label = labels[int(classes[i])]
+        if label == "sports ball":
+            potentialSportsBalls.append((scores[i], i))
 
-        ymin = int(max(1, (boxes[max_index][0] * imH)))
-        xmin = int(max(1, (boxes[max_index][1] * imW)))
-        ymax = int(min(imH, (boxes[max_index][2] * imH)))
-        xmax = int(min(imW, (boxes[max_index][3] * imW)))
+    #if we have potential candidates, find the one with max probability, and if it is above our minimum score threshold, then output
+    if len(potentialSportsBalls) > 0:
+        sportsBall = potentialSportsBalls[np.argmax(potentialSportsBalls)]
+        
+        if(sportsBall._1 > min_conf_threshold):
+            index = sportsBall._2
+            ymin = int(max(1, (boxes[index][0] * imH)))
+            xmin = int(max(1, (boxes[index][1] * imW)))
+            ymax = int(min(imH, (boxes[index][2] * imH)))
+            xmax = int(min(imW, (boxes[index][3] * imW)))
 
-        label = labels[int(classes[max_index])]
-        cv2.putText(image, label, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
-        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
-        server.sendImage(image, sock)
+            cv2.putText(image, label, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
+            cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
+            server.sendImage(image, sock)
 
-        return (ymin, xmin, ymax, xmax, imH, imW)
+            return (ymin, xmin, ymax, xmax, imH, imW)
 
     server.sendImage(image, sock)
     return None

@@ -1,7 +1,6 @@
 import keyboard
 
-while True:
-    if keyboard.is_pressed("left arrow"):
-        print("hi n")
-    if keyboard.is_pressed("up arrow"):
-        print("bye")
+import numpy as np
+
+a = [(30, 100), (50, 10)]
+print(np.argmax(a))
