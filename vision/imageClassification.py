@@ -76,7 +76,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
         ymax = int(min(imH, (boxes[max_index][2] * imH)))
         xmax = int(min(imW, (boxes[max_index][3] * imW)))
 
-        label = labels[classes[max_index]]
+        label = labels[int(classes[max_index])]
         cv2.putText(image, label, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
         server.sendImage(image, sock)
