@@ -72,7 +72,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
     potentialSportsBalls = []
     for i in range(0, len(scores)):
         label = labels[int(classes[i])]
-        if label == "sports ball":
+        if label == "person":
             potentialSportsBalls.append((scores[i], i))
 
     #if we have potential candidates, find the one with max score, and if it is above our minimum score threshold, then output
@@ -90,7 +90,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
             ymax = int(min(imH, (boxes[index][2] * imH)))
             xmax = int(min(imW, (boxes[index][3] * imW)))
 
-            cv2.putText(image, label, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(image, "person", (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
             cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
             server.sendImage(image, sock)
 
