@@ -75,17 +75,16 @@ def findPersonCoordinates(image, interpreterDetails, sock):
         if label == "sports ball":
             potentialSportsBalls.append((scores[i], i))
 
-    #if we have potential candidates, find the one with max probability, and if it is above our minimum score threshold, then output
+    #if we have potential candidates, find the one with max score, and if it is above our minimum score threshold, then output
     lengthArray = len(potentialSportsBalls)
     if lengthArray > 0:
         #if length of index is one, np.argmax will treat the single tuple as the list itself
         maxIndex = 0
         if lengthArray != 1:
             maxIndex = np.argmax(potentialSportsBalls)
-        sportsBall = potentialSportsBalls[maxIndex]
+        score, index = potentialSportsBalls[maxIndex]
         
-        if(sportsBall._1 > min_conf_threshold):
-            index = sportsBall._2
+        if(score > min_conf_threshold):
             ymin = int(max(1, (boxes[index][0] * imH)))
             xmin = int(max(1, (boxes[index][1] * imW)))
             ymax = int(min(imH, (boxes[index][2] * imH)))
