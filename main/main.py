@@ -23,5 +23,6 @@ try:
     t1.start()
     t2.start()
 except KeyboardInterrupt:
+    print("hihih")
     carSetup.end()
     sys.exit()
