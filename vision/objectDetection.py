@@ -19,7 +19,7 @@ def producer(threadQueue, interpreterDetails, sock):
     picam.start()
     time.sleep(2)
 
-    frameCounterLimit = 2
+    frameCounterLimit = 1
     frameCounter = 0
     totalDeltaX = 0
     totalDeltaY = 0
