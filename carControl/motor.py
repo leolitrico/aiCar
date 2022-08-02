@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 m1 = None
 m2 = None
 deltaYTolerance = 10
-maxDeltaY = 300
+maxDeltaY = 200
 
 
 def setup():
