@@ -11,7 +11,7 @@ sys.path.insert(0, '/home/pi/aiCar/network')
 import server
 
 # minimum score needed to get a correct classification of our object
-min_conf_threshold = 0.4
+min_conf_threshold = 0.6
 
 #object we want to detect
 object = "person"
