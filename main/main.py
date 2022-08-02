@@ -19,7 +19,7 @@ try:
 
     #initialise carControl thread, and object detection thread and start them 
     t1 = Thread(target=carThread.consumer, args=(threadQueue, ))
-    t2 = Thread(target=objectDetection.producer, args=(threadQueue, imageClassification.getInterpreter(), sock, ))
+    t2 = Thread(target=objectDetection.producer, args=(threadQueue, imageClassification.getInterpreter(), None, ))
     t1.start()
     t2.start()
 except KeyboardInterrupt:
