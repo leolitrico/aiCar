@@ -6,7 +6,7 @@ import keyboard
 import carSetup
 
 
-deltaXTolerance = 150
+deltaXTolerance = 120
 
 
 def consumer(threadQueue):
