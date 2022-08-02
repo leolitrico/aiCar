@@ -7,11 +7,12 @@ import carSetup
 
 
 deltaXTolerance = 20
-noObjectDetectedCountLimit = 1000000 # 1'000'000
-noObjectDetectedCount = noObjectDetectedCountLimit
 
 
 def consumer(threadQueue):
+    noObjectDetectedCountLimit = 1000000 # 1'000'000
+    noObjectDetectedCount = noObjectDetectedCountLimit
+    
     while True:
         #if object detected, then get data sent and move car accordingly
         if threadQueue.qsize() > 0:
@@ -29,7 +30,6 @@ def consumer(threadQueue):
             motor.run(deltaY)
         #
         else:
-            global noObjectDetectedCount
             if(noObjectDetectedCount < 0):
                 noObjectDetectedCount = noObjectDetectedCountLimit
                 steering.steer(steering.Steering.STRAIGHT)

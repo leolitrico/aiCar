@@ -19,6 +19,11 @@ def producer(threadQueue, interpreterDetails, sock):
     picam.start()
     time.sleep(2)
 
+    frameCounterLimit = 5
+    frameCounter = 0
+    totalDeltaX = 0
+    totalDeltaY = 0
+
     while(1):
         # get a frame as an array of RGB
         image = picam.capture_array()
@@ -30,4 +35,14 @@ def producer(threadQueue, interpreterDetails, sock):
         if result != None:
             (deltaX, deltaY) = processCoordinates(result[0],
                                                   result[1], result[2], result[3], result[4], result[5])
-            threadQueue.put((deltaX, deltaY))
+            frameCounter += 1
+            totalDeltaX += deltaX
+            totalDeltaY += deltaY
+
+            #only send data to the threadQueue if we have received {sendDataCounterLimit} amounts of frames that had objects in them
+            if frameCounter == frameCounterLimit:
+                #send the average position of the object detected in the different frames 
+                threadQueue.put((totalDeltaX / frameCounter, totalDeltaY / frameCounter))
+                frameCounter = 0
+                totalDeltaX = 0
+                totalDeltaY = 0
