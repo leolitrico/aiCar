@@ -45,7 +45,7 @@ def producer(threadQueue, interpreterDetails, sock):
             if frameCounter == frameCounterLimit:
                 #send the average position of the object detected in the different frames 
                 threadQueue.put((totalDeltaX / frameCounter, totalDeltaY / frameCounter))
-                print("Object detection: " + counter)
+                print("Object detection: " + str(counter))
                 counter += 1
 
                 #reset variables
