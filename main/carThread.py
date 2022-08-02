@@ -29,10 +29,13 @@ def consumer(threadQueue):
             motor.run(deltaY)
         #
         else:
+            global noObjectDetectedCount
             if(noObjectDetectedCount < 0):
                 noObjectDetectedCount = noObjectDetectedCountLimit
                 steering.steer(steering.Steering.STRAIGHT)
                 motor.run(0)
+            else:
+                noObjectDetectedCount-=1
 
 
 
