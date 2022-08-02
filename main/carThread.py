@@ -7,7 +7,7 @@ import carSetup
 
 
 deltaXTolerance = 20
-noObjectDetectedCountLimit = 1000
+noObjectDetectedCountLimit = 100000
 noObjectDetectedCount = noObjectDetectedCountLimit
 
 
