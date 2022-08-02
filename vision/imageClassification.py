@@ -14,7 +14,7 @@ import server
 min_conf_threshold = 0.5
 
 #object we want to detect
-object = "person"
+object = "sports ball"
 
 #method to get the score and index of the object with the max score
 def getMaxScore(list):
