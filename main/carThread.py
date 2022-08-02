@@ -6,12 +6,13 @@ import keyboard
 import carSetup
 
 
-deltaXTolerance = 30
+deltaXTolerance = 40
 
 
 def consumer(threadQueue):
     noObjectDetectedCountLimit = 1000000 # 1'000'000
     noObjectDetectedCount = noObjectDetectedCountLimit
+    counter = 0 #counter to see delay between objectDetection, and carControl
     
     while True:
         #if object detected, then get data sent and move car accordingly
@@ -25,7 +26,8 @@ def consumer(threadQueue):
             else:
                 steer = steering.Steering.RIGHT
 
-            print("deltaX: " + str(deltaX) + "  deltaY: " + str(deltaY))
+            print("CarCounter: " + str(counter))
+            counter += 1
             steering.steer(steer)
             motor.run(deltaY)
         #
