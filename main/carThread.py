@@ -6,7 +6,7 @@ import keyboard
 import carSetup
 
 
-deltaXTolerance = 100
+deltaXTolerance = 150
 
 
 def consumer(threadQueue):
@@ -30,7 +30,8 @@ def consumer(threadQueue):
             counter += 1
             steering.steer(steer)
             motor.run(deltaY)
-        #
+            
+        #if no data is received, then make car neutral (with a delay)
         else:
             if(noObjectDetectedCount < 0):
                 noObjectDetectedCount = noObjectDetectedCountLimit
