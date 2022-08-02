@@ -25,7 +25,3 @@ def consumer(threadQueue):
             steering.steer(steer)
             motor.run(deltaY)
 
-        #if q is pressed then end the locomotion and cleanup GPIOs     
-        if keyboard.is_pressed("q"):
-            carSetup.end()
-
