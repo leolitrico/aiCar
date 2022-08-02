@@ -16,6 +16,11 @@ def setup():
     GPIO.output(13, 0)
     GPIO.output(12, 1)  # output enable
 
+def end():
+    GPIO.output(6, 0)
+    GPIO.output(13, 0)
+    GPIO.output(12, 0)
+
 
 def steer(steer):
     if steer == Steering.STRAIGHT:

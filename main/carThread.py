@@ -2,6 +2,8 @@ import sys
 sys.path.insert(0, '/home/pi/aiCar/carControl')
 import steering
 import motor
+import keyboard
+import carSetup
 
 
 deltaXTolerance = 20
@@ -22,3 +24,8 @@ def consumer(threadQueue):
             print("deltaX: " + str(deltaX) + "  deltaY: " + str(deltaY))
             steering.steer(steer)
             motor.run(deltaY)
+
+        #if q is pressed then end the locomotion and cleanup GPIOs     
+        if keyboard.is_pressed("q"):
+            carSetup.end()
+

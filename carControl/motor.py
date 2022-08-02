@@ -20,6 +20,11 @@ def setup():
     GPIO.setup(26, GPIO.OUT)  # PWMA
     GPIO.output(26, 1)  # output enable
 
+def end():
+    m1.ChangeDutyCycle(0)
+    m2.ChangeDutyCycle(0)
+    GPIO.output(26, 0)
+
 
 def run(deltaY):
     absoluteY = abs(deltaY)
