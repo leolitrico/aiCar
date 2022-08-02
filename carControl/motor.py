@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 
 m1 = None
 m2 = None
-deltaYTolerance = 30
+deltaYTolerance = 20
 maxDeltaY = 300
 
 

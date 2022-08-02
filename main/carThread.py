@@ -18,7 +18,7 @@ def consumer(threadQueue):
         if threadQueue.qsize() > 0:
             deltaX, deltaY = threadQueue.get()
             steer = None
-            if abs(deltaX) < 20:
+            if abs(deltaX) < deltaXTolerance:
                 steer = steering.Steering.STRAIGHT
             elif deltaX < 0:
                 steer = steering.Steering.LEFT
