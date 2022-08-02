@@ -101,9 +101,12 @@ def findPersonCoordinates(image, interpreterDetails, sock):
 
             cv2.putText(image, object, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
             cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
-            server.sendImage(image, sock)
+            if sock != None:
+                server.sendImage(image, sock)
 
             return (ymin, xmin, ymax, xmax, imH, imW)
 
-    server.sendImage(image, sock)
+    if sock != None:
+        server.sendImage(image, sock)
+    
     return None
