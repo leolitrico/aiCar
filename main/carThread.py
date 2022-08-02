@@ -7,6 +7,8 @@ import carSetup
 
 
 deltaXTolerance = 20
+noObjectDetectedCountLimit = 1000
+noObjectDetectedCount = noObjectDetectedCountLimit
 
 
 def consumer(threadQueue):
@@ -25,9 +27,12 @@ def consumer(threadQueue):
             print("deltaX: " + str(deltaX) + "  deltaY: " + str(deltaY))
             steering.steer(steer)
             motor.run(deltaY)
-        #if object not detected, then put direction and power at baseline
+        #
         else:
-            steering.steer(steering.Steering.STRAIGHT)
-            motor.run(0)
+            if(noObjectDetectedCount < 0):
+                noObjectDetectedCount = noObjectDetectedCountLimit
+                steering.steer(steering.Steering.STRAIGHT)
+                motor.run(0)
+
 
 
