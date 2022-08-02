@@ -19,6 +19,6 @@ def consumer(threadQueue):
             else:
                 steer = steering.Steering.RIGHT
 
-            print("deltaX: " + deltaX + "  deltaY: " + deltaY)
+            print("deltaX: " + str(deltaX) + "  deltaY: " + str(deltaY))
             steering.steer(steer)
             motor.run(deltaY)
