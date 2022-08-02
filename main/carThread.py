@@ -29,7 +29,7 @@ def consumer(threadQueue):
             print("CarCounter: " + str(counter))
             counter += 1
             steering.steer(steer)
-            motor.run(deltaY)
+            motor.run(deltaY - 100)
             
         #if no data is received, then make car neutral (with a delay)
         else:
