@@ -4,7 +4,7 @@ import cv2
 import time
 import rotation
 
-
+#process the coordinates of our detected object to get it center
 def processCoordinates(ymin, xmin, ymax, xmax, imH, imW):
     centerX = (xmax - xmin) / 2 + xmin
     centerY = (ymax - ymin) / 2 + ymin
@@ -12,7 +12,7 @@ def processCoordinates(ymin, xmin, ymax, xmax, imH, imW):
     deltaY = centerY - imH / 2
     return (deltaX, deltaY)
 
-
+#main function used to find objects in each frame, and send its coordinates to the car thread using a queue
 def producer(threadQueue, interpreterDetails, sock):
     # setup camera
     picam = Picamera2()

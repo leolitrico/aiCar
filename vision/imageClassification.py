@@ -11,7 +11,7 @@ sys.path.insert(0, '/home/pi/aiCar/network')
 import server
 
 # minimum score needed to get a correct classification of our object
-min_conf_threshold = 0.45
+minScoreThreshold = 0.45
 
 #object we want to detect
 object = "person"
@@ -28,57 +28,57 @@ def getMaxScore(list):
 
 def getInterpreter():
      # Path to the model's graph which will detect our objects
-    path_to_graph = "/home/pi/aiCar/tfliteModel/detect.tflite"
+    graphPath = "/home/pi/aiCar/tfliteModel/detect.tflite"
 
     # Path to labelmap
-    path_to_labels = "/home/pi/aiCar/tfliteModel/labelmap.txt"
+    labelPath = "/home/pi/aiCar/tfliteModel/labelmap.txt"
 
     # Load the label map
-    with open(path_to_labels, 'r') as f:
+    with open(labelPath, 'r') as f:
         labels = [line.strip() for line in f.readlines()]
 
     # First label is '???', which has to be removed.
     if labels[0] == '???':
         del(labels[0])
 
-    interpreter = Interpreter(model_path=path_to_graph)
+    interpreter = Interpreter(model_path=graphPath)
 
     interpreter.allocate_tensors()
 
     # Get model input and output details
-    input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
-    height = input_details[0]['shape'][1]
-    width = input_details[0]['shape'][2]
+    inputDetails = interpreter.get_input_details()
+    outputDetails = interpreter.get_output_details()
+    height = inputDetails[0]['shape'][1]
+    width = inputDetails[0]['shape'][2]
 
-    outname = output_details[0]['name']
+    outname = outputDetails[0]['name']
 
     if ('StatefulPartitionedCall' in outname):
-        boxes_idx, classes_idx, scores_idx = 1, 3, 0
+        boxesIndex, classesIndex, scoresIndex = 1, 3, 0
     else:
-        boxes_idx, classes_idx, scores_idx = 0, 1, 2
+        boxesIndex, classesIndex, scoresIndex = 0, 1, 2
 
-    return (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx, labels)
+    return (interpreter, height, width, inputDetails, outputDetails, boxesIndex, classesIndex, scoresIndex, labels)
 
 def findPersonCoordinates(image, interpreterDetails, sock):
 
-    (interpreter, height, width, input_details, output_details, boxes_idx, classes_idx, scores_idx, labels) = interpreterDetails
+    (interpreter, height, width, inputDetails, outputDetails, boxesIndex, classesIndex, scoresIndex, labels) = interpreterDetails
     # resize the image to the input specifications made by ml model
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    imageRGB = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     imH, imW, _ = image.shape
-    image_resized = cv2.resize(image_rgb, (width, height))
-    input_data = np.expand_dims(image_resized, axis=0)
+    imageResized = cv2.resize(imageRGB, (width, height))
+    inputData = np.expand_dims(imageResized, axis=0)
 
     # run the model on our image
-    interpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.set_tensor(inputDetails[0]['index'], inputData)
     interpreter.invoke()
 
     # get the detection results
-    boxes = interpreter.get_tensor(output_details[boxes_idx]['index'])[
+    boxes = interpreter.get_tensor(outputDetails[boxesIndex]['index'])[
         0]
-    classes = interpreter.get_tensor(output_details[classes_idx]['index'])[
+    classes = interpreter.get_tensor(outputDetails[classesIndex]['index'])[
         0]
-    scores = interpreter.get_tensor(output_details[scores_idx]['index'])[
+    scores = interpreter.get_tensor(outputDetails[scoresIndex]['index'])[
         0]
 
     #get the objects that could qualify as a sports ball
@@ -93,7 +93,7 @@ def findPersonCoordinates(image, interpreterDetails, sock):
     if lengthArray > 0:
         score, index = getMaxScore(potentialObjects)
         
-        if(score > min_conf_threshold):
+        if(score > minScoreThreshold):
             ymin = int(max(1, (boxes[index][0] * imH)))
             xmin = int(max(1, (boxes[index][1] * imW)))
             ymax = int(min(imH, (boxes[index][2] * imH)))

@@ -1,9 +1,11 @@
+#run on raspberry pi, to allow computer to send motion commands to control car remotely
 import sys
 sys.path.insert(0, '/home/pi/aiCar/carControl')
 import motor
 import steering
 import carSetup
 import socket
+
 
 carSetup.setup()
 print("car ready")

@@ -12,13 +12,7 @@ def imageProcessing(image):
     grayImage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     return cv2.GaussianBlur(grayImage, (21, 21), 0)
 
-#x coordinate of shape, width of shape, width of image)
-def deltaX(x, w, imageWidth):
-    center = x + w/2
-    delta = center - imageWidth/2
-    return delta
-
-def producer(threadQueue):
+def main():
     #setup camera
     picam = Picamera2()
     picam.start()
@@ -27,16 +21,6 @@ def producer(threadQueue):
     #get first reference image
     initialImage = picam.capture_array()
     ref = imageProcessing(initialImage).astype("float")
-
-    imageWidth = len(initialImage[1])
-
-    #counter to limit data production amount, and get good averages for right or left or front or back
-    totalX = 0
-    totalArea = 0
-    counter = 0
-
-
-
 
     while(1):
         #get a frame as an array of RGB
@@ -57,38 +41,21 @@ def producer(threadQueue):
         #find the contours of the objects that appear in imageDiff
         contours, _ = cv2.findContours(imageDiff.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-        x = 0
-        area = 0
-        counter += 1
-        cv2.imshow("Thresh", imageDiff)
+        cv2.imshow("motion detection", imageDiff)
 
         if len(contours) > 0:
             shapes = [cv2.contourArea(c) for c in contours]
 
-            max_index = np.argmax(shapes)
-            maxContour = contours[max_index]   
-            for R in shapes:
+            maxIndex = np.argmax(shapes)
+            maxContour = contours[maxIndex]  
 
-                # draw a rectangle around the largest contour
-                x,y,w,h = cv2.boundingRect(R)
-                #for showing the rectangle on the processed image
-                cv2.rectangle(grayImage, (x,y), (x+w,y+h), (0,255,0), 2)
-            area = cv2.contourArea(maxContour)
-        
-        totalX += x
-        totalArea += area
-
-        if(counter == 0):
-            deltaX = totalX / counterLimit
-            deltaArea = (totalArea1 - totalArea2) / counterlimit
-            data = (deltaX, )
-            threadQueue.push(data)
-            counter = counterLimit
-
-        counter-=1
+            # draw a rectangle around the largest contour
+            x,y,w,h = cv2.boundingRect(maxContour)
+            #show the rectangle on the processed image
+            cv2.rectangle(grayImage, (x,y), (x+w,y+h), (0,255,0), 2)
 
         # show the frame
-        cv2.imshow("Result", grayImage)   
+        cv2.imshow("motion detection with frame", grayImage)   
 
         # if the 'q' key is pressed then break from the loop
         key = cv2.waitKey(1) & 0xFF

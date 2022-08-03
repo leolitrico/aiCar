@@ -3,8 +3,8 @@ import RPi.GPIO as GPIO
 
 m1 = None
 m2 = None
-deltaYTolerance = 10
-maxDeltaY = 275
+deltaYTolerance = 10 #turn car only if its horizontal displacement from center of image is above deltaXTolerance
+maxDeltaY = 275 #speed response regulator for deltaY values (lower value => higher speed)
 
 
 def setup():

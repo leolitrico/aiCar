@@ -1,12 +1,10 @@
-import sys
-sys.path.insert(0, '/home/pi/aiCar/carControl')
 import steering
 import motor
 import keyboard
 import carSetup
 
 
-deltaXTolerance = 130
+deltaXTolerance = 130 #turn car only if its horizontal displacement from center of image is above deltaXTolerance
 
 
 def consumer(threadQueue):

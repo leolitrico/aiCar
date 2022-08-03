@@ -1,6 +1,6 @@
+#main program, make car follow an object (defined in vision/imageClassification)
 from queue import Queue
 from threading import Thread
-import carThread
 import sys
 
 sys.path.insert(0, '/home/pi/aiCar/carControl')
@@ -8,6 +8,7 @@ sys.path.insert(0, '/home/pi/aiCar/vision')
 sys.path.insert(0, '/home/pi/aiCar/network')
 import objectDetection
 import carSetup
+import carThread
 import imageClassification
 import server
 

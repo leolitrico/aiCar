@@ -1,3 +1,4 @@
+#run on computer, to control car remotely using keyboard
 import socket
 import cv2
 import pickle
