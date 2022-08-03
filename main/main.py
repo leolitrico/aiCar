@@ -11,7 +11,7 @@ import carSetup
 import imageClassification
 import server
 
-serverOn = False
+serverOn = True
 
 #setup, or stop locomotion if keyboard interrupt received
 try:

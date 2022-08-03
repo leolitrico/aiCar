@@ -11,10 +11,10 @@ sys.path.insert(0, '/home/pi/aiCar/network')
 import server
 
 # minimum score needed to get a correct classification of our object
-min_conf_threshold = 0.5
+min_conf_threshold = 0.4
 
 #object we want to detect
-object = "sports ball"
+object = "person"
 
 #method to get the score and index of the object with the max score
 def getMaxScore(list):
