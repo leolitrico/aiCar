@@ -27,7 +27,7 @@ def consumer(threadQueue):
                 steer = steering.Steering.RIGHT
 
             #print("CarCounter: " + str(counter))
-            counter += 1
+            #counter += 1
             steering.steer(steer)
             motor.run(deltaY)
             
