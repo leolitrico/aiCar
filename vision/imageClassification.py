@@ -85,7 +85,6 @@ def findPersonCoordinates(image, interpreterDetails, sock):
     potentialObjects = []
     for i in range(0, len(scores)):
         label = labels[int(classes[i])]
-        print(label + ", score:  " + str(scores[i]))
         if label == object:
             potentialObjects.append((scores[i], i))
 
