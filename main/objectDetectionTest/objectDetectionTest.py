@@ -1,3 +1,4 @@
+#only run objectDetection thread, to see how the ML algorithm is working 
 from queue import Queue
 import sys
 
