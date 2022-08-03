@@ -19,7 +19,7 @@ def producer(threadQueue, interpreterDetails, sock):
     picam.start()
     time.sleep(2)
 
-    counter = 0 #counter for delay between objectDetection and carControl
+    #counter = 0 #counter for delay between objectDetection and carControl
 
     frameCounterLimit = 1
     frameCounter = 0
@@ -45,7 +45,7 @@ def producer(threadQueue, interpreterDetails, sock):
             if frameCounter == frameCounterLimit:
                 #send the average position of the object detected in the different frames 
                 threadQueue.put((totalDeltaX / frameCounter, totalDeltaY / frameCounter))
-                print("Object detection: " + str(counter))
+                #print("Object detection: " + str(counter))
                 counter += 1
 
                 #reset variables

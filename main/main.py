@@ -11,7 +11,7 @@ import carSetup
 import imageClassification
 import server
 
-serverOn = False
+serverOn = True
 
 #setup, or stop locomotion if keyboard interrupt received
 try:
@@ -27,6 +27,7 @@ try:
     t2 = Thread(target=objectDetection.producer, args=(threadQueue, imageClassification.getInterpreter(), sock, ))
     t1.start()
     t2.start()
+
 except KeyboardInterrupt:
     print("program terminated")
     carSetup.end()
